@@ -1,0 +1,44 @@
+<launch>
+    <!-- ========================= CLI Arguments ========================= -->
+    <!-- Robot initial pose -->
+    <arg name="x" default="-30.43" />
+    <arg name="y" default="-1.17" />
+    <arg name="z" default="0.373011" />
+    <arg name="yaw" default="1.57079632679" />
+
+    <!-- Gazebo World file to load -->
+    <arg name="world_name" default="$(find parc-robot)worlds/parc_task1.world" />
+
+    <!-- ========================= Robot Model ========================= -->
+    <!-- Load URDF -->
+    <param name="robot_description" command="$(find xacro)/xacro '$(find parc-robot)/urdf/robot.xacro'" />
+
+    <!-- Generate TF from URDF -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+    <!-- ========================= Simulator ========================= -->
+    <!-- Start Gazebo -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world_name)" />
+        <arg name="paused" value="false" />
+        <arg name="use_sim_time" value="true" />
+        <arg name="gui" value="true" />
+        <arg name="headless" value="false" />
+        <arg name="debug" value="false" />
+    </include>
+
+    <!-- Spawn Robot model in Gazebo -->
+    <node name="spawn_robot_model" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x)
+                  -y $(arg y)
+                  -z $(arg z)
+                  -Y $(arg yaw)
+                  -unpause
+                  -urdf
+                  -param robot_description
+                  -model 'robot'" />
+
+    <!-- ========================= Vizualize ========================= -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find parc-robot)/rviz/task1.rviz" />
+</launch>

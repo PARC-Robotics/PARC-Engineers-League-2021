@@ -1,0 +1,75 @@
+<launch>
+    <!-- ========================= CLI Arguments ========================= -->
+    <!-- Robot initial pose -->
+    <arg name="x" default="-12.32" />
+    <arg name="y" default="11.06" />
+    <arg name="z" default="0.373" />
+    <arg name="yaw" default="0" />
+
+    <!-- Gazebo World file to load -->
+    <arg name="world_name" default="$(find parc-robot)worlds/parc_task2.world" />
+
+    <!-- ========================= Robot Model ========================= -->
+    <!-- Load URDF -->
+    <param name="robot_description" command="$(find xacro)/xacro '$(find parc-robot)/urdf/robot.xacro'" />
+
+    <!-- Generate TF from URDF -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+    <!-- ========================= Simulator ========================= -->
+    <!-- Start Gazebo -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world_name)" />
+        <arg name="paused" value="true" />
+        <arg name="use_sim_time" value="true" />
+        <arg name="gui" value="true" />
+        <arg name="headless" value="false" />
+        <arg name="debug" value="false" />
+    </include>
+
+    <!-- Spawn Robot model in Gazebo -->
+    <node name="spawn_robot_model" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x)
+                  -y $(arg y)
+                  -z $(arg z)
+                  -Y $(arg yaw)
+                  -urdf
+                  -param robot_description
+                  -model 'robot'" />
+
+    <!-- ========================= Vizualize ========================= -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find parc-robot)/rviz/task2.rviz" />
+
+
+    <!-- ========================= Vizualize ========================= -->
+    <!-- Set initial configuration of traffic sign -->
+    <group ns="traffic_sign">
+
+        <!-- Load the traffic sign model to ROS params -->
+        <param name="/traffic_sign/robot_description" command="$(find xacro)/xacro --inorder '$(find parc-robot)/urdf/traffic_sign.xacro'" />
+
+        <!-- Load the robot controller configuration file -->
+        <rosparam file="$(find parc-robot)/params/traffic_sign_control.yaml" command="load" />
+
+        <!-- Start traffic sign controller -->
+        <node name="traffic_sign_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/traffic_sign" args="joint_red_position_controller
+                joint_green_position_controller" />
+
+
+        <!-- Spawn the traffic sign model in Gazebo -->
+        <node name="spawn_traffic_model" pkg="gazebo_ros" type="spawn_model" args="-param /traffic_sign/robot_description
+                -J joint_red 0
+                -J joint_green 1.57
+                -x -2.71
+                -y 10.03
+                -z 0.156
+                -unpause
+                -urdf
+                -model 'traffic_sign'" />
+        <!-- NOTE: Start the Gazebo in paused mode, apply joint angles as shown above and then unpause -->
+
+        <!-- Running node to change traffic sign -->
+        <node name="sign_controller" pkg="parc-robot" type="traffic_sign_control.py" />
+    </group>
+</launch>

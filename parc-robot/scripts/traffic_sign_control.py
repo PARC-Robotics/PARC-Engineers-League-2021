@@ -24,7 +24,7 @@ class sign_control():
                 self._joint_green_pub.get_num_connections() == 0:
             rospy.sleep(rospy.Duration(0.2))
 
-        rospy.loginfo("Sending motion commands")
+        rospy.loginfo("Sending Red sign")
 
         # initial state is stop
         self.send_red()
@@ -35,11 +35,15 @@ class sign_control():
         # it is highly recommended to test your work with random time for Red
         # as shown above
 
+        rospy.loginfo("Sending Green sign")
+
         self.send_green()
         # wait on green for exactly 10 seconds (including the 2 seconds taken
         # to change the sign in function 'send_green()' above)
         rospy.sleep(rospy.Duration(8))
 
+        rospy.loginfo("Sending Red sign")
+        
         # Return to Red and exit
         self.send_red()
 

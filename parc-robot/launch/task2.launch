@@ -38,11 +38,11 @@
                   -param robot_description
                   -model 'robot'" />
 
-    <!-- ========================= Vizualize ========================= -->
+    <!-- ========================= Visualize ========================= -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find parc-robot)/rviz/task2.rviz" />
 
 
-    <!-- ========================= Vizualize ========================= -->
+    <!-- ========================= Traffic Sign ========================= -->
     <!-- Set initial configuration of traffic sign -->
     <group ns="traffic_sign">
 

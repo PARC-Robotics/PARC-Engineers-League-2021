@@ -39,6 +39,13 @@
                   -param robot_description
                   -model 'robot'" />
 
+    <!-- Show Goal Location in Gazebo -->
+    <node name="spawn_goal_location" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find parc-robot)/models/goal_location/model.sdf -sdf 
+                  -model goal_location
+                  -x     -12.32
+                  -y      10.9
+                  -z       0.1" />
+
     <!-- ========================= Vizualize ========================= -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find parc-robot)/rviz/task1.rviz" />
 </launch>

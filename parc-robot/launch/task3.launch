@@ -1,5 +1,10 @@
 <launch>
     <!-- ========================= CLI Arguments ========================= -->
+    <!-- Goal Location -->
+    <arg name="goal_x" default="7.225" />
+    <arg name="goal_y" default="-6.785" />
+    <arg name="goal_theta" default="-1.57079632679" />
+
     <!-- Robot initial pose -->
     <arg name="x" default="8" />
     <arg name="y" default="9" />
@@ -38,6 +43,13 @@
                   -urdf
                   -param robot_description
                   -model 'robot'" />
+
+    <!-- Show Goal Location in Gazebo -->
+    <node name="spawn_goal_location" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find parc-robot)/models/goal_location/model.sdf -sdf 
+            -model goal_location
+            -x $(arg goal_x)
+            -y $(arg goal_y)
+            -z 0.373" />
 
     <!-- ========================= Visualize ========================= -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find parc-robot)/rviz/task3.rviz" />

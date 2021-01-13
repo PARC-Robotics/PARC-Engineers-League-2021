@@ -2,7 +2,7 @@
     <!-- ========================= CLI Arguments ========================= -->
     <!-- Robot initial pose -->
     <arg name="x" default="-12.32" />
-    <arg name="y" default="11.06" />
+    <arg name="y" default="10.9" />
     <arg name="z" default="0.373" />
     <arg name="yaw" default="0" />
 
@@ -37,6 +37,13 @@
                   -urdf
                   -param robot_description
                   -model 'robot'" />
+
+    <!-- Show Goal Location in Gazebo -->
+    <node name="spawn_goal_location" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find parc-robot)/models/goal_location/model.sdf -sdf 
+                  -model goal_location
+                  -x      -2.0
+                  -y      10.9
+                  -z       0.1" />
 
     <!-- ========================= Visualize ========================= -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find parc-robot)/rviz/task2.rviz" />

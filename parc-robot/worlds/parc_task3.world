@@ -83,6 +83,21 @@
     </include>
 
     <include>
+      <uri>model://postbox</uri>
+      <pose>-29.84 6.29 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://postbox</uri>
+      <pose>-1.536 -1.605 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-29.79 -11.47 0 0 0 0</pose>
+    </include>
+
+    <include>
       <uri>model://oak_tree</uri>
       <pose>15.03 -7.67  0 0 0 0</pose>
     </include>
@@ -110,6 +125,16 @@
     <include>
       <uri>model://fire_hydrant</uri>
       <pose>-20.56 11.56 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://first_2015_trash_can</uri>
+      <pose>-19.729 -10.384 0.138 0 0 0.025</pose>
+    </include>
+
+    <include>
+      <uri>model://first_2015_trash_can</uri>
+      <pose>5.845 -10.48 0.138 0 0 0.025</pose>
     </include>
 
     <include>

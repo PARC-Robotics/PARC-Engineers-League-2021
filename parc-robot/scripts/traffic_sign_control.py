@@ -12,6 +12,9 @@ class sign_control():
         # Initialize node
         rospy.init_node('sign_control')
 
+        # Get delay from parameter server
+        start_delay = rospy.get_param('~start_delay', 10)
+
         # Initiate publisher
         self._joint_red_pub = rospy.Publisher('/traffic_sign/joint_red_position_controller/command',
                                               Float64, queue_size=1)
@@ -29,21 +32,17 @@ class sign_control():
         # initial state is stop
         self.send_red()
 
-        # Wait for random time before turning the sign green
-        rospy.sleep(rospy.Duration(random.randint(3, 10)))
-        # NOTE: A similar logic would be used to evaluate your submission, hence
-        # it is highly recommended to test your work with random time for Red
-        # as shown above
+        # Wait for "start_delay" seconds before turning the sign green
+        rospy.sleep(rospy.Duration(start_delay))
 
         rospy.loginfo("Sending Green sign")
 
         self.send_green()
-        # wait on green for exactly 10 seconds (including the 2 seconds taken
-        # to change the sign in function 'send_green()' above)
-        rospy.sleep(rospy.Duration(8))
+        # wait onf green for exactly 15 seconds
+        rospy.sleep(rospy.Duration(15))
 
         rospy.loginfo("Sending Red sign")
-        
+
         # Return to Red and exit
         self.send_red()
 
@@ -54,18 +53,12 @@ class sign_control():
         self._joint_red_pub.publish(j1)
         self._joint_green_pub.publish(j2)
 
-        # wait for sign joints to reach the given position
-        rospy.sleep(2)
-
     def send_green(self):
         j1 = Float64(1.57)
         j2 = Float64(0)
 
         self._joint_red_pub.publish(j1)
         self._joint_green_pub.publish(j2)
-
-        # wait for sign joints to reach the given position
-        rospy.sleep(2)
 
 
 if __name__ == "__main__":

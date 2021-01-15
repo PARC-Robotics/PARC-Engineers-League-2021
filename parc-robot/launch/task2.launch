@@ -6,6 +6,8 @@
     <arg name="z" default="0.373" />
     <arg name="yaw" default="0" />
 
+    <arg name="start_delay" default="7" />
+
     <!-- Gazebo World file to load -->
     <arg name="world_name" default="$(find parc-robot)worlds/parc_task2.world" />
 
@@ -77,6 +79,8 @@
         <!-- NOTE: Start the Gazebo in paused mode, apply joint angles as shown above and then unpause -->
 
         <!-- Running node to change traffic sign -->
-        <node name="sign_controller" pkg="parc-robot" type="traffic_sign_control.py" />
+        <node name="sign_controller" pkg="parc-robot" type="traffic_sign_control.py">
+            <param name="start_delay" value="$(arg start_delay)" />
+        </node>
     </group>
 </launch>

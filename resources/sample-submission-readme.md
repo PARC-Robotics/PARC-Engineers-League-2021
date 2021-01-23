@@ -12,11 +12,7 @@ In this section, you should give an overview of the competition task, briefly de
 * First and Last Name
 * ...
 
-<br>
 
-***
-
-<br>
 
 ## Dependencies
 
@@ -30,11 +26,7 @@ In this section, you should give an overview of the competition task, briefly de
     * `$ sudo apt-get install python-opencv`
 
 
-<br>
 
-***
-
-<br>
 
 ## Task 1
 
@@ -43,11 +35,7 @@ Include a brief description of your approach to the solution (*This should be on
 Write the command required to run your solution. Should be in this format: <br>
 ` roslaunch <your-package-name> task1_solution.launch `
 
-<br>
 
-***
-
-<br>
 
 ## Task 2
 
@@ -56,11 +44,7 @@ Include a brief description of your approach to the solution (*This should be on
 Write the command required to run your solution. Should be in this format: <br>
 ` roslaunch <your-package-name> task2_solution.launch `
 
-<br>
 
-***
-
-<br>
 
 ## Task 3
 
@@ -69,11 +53,7 @@ Include a brief description of your approach to the solution (*This should be on
 Write the command required to run your solution. Should be in this format: <br>
 ` roslaunch <your-package-name> task3_solution.launch `
 
-<br>
 
-***
-
-<br>
 
 ## Challenges Faced
 
